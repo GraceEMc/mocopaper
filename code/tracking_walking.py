@@ -6,7 +6,7 @@ import matplotlib.transforms as mtransforms
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import matplotlib.cm as cm
-import cv2
+#import cv2
 
 import opensim as osim
 
@@ -243,7 +243,7 @@ class MotionTrackingWalking(MocoPaperResult):
             modelProcessor.append(osim.ModOpAddExternalLoads(ext_loads_xml))
 
         model = modelProcessor.process()
-        model.initSystem()
+        #model.initSystem()
         muscles = model.updMuscles()
         for imusc in np.arange(muscles.getSize()):
             muscle = osim.DeGrooteFregly2016Muscle.safeDownCast(
@@ -297,7 +297,8 @@ class MotionTrackingWalking(MocoPaperResult):
                           f'{currMultiplier*maxIsometricForce}')
             print('\n')
 
-        modelProcessorTendonCompliance = osim.ModelProcessor(model)
+        modelProcessorTendonCompliance = modelProcessor 
+        #osim.ModelProcessor(model)
         modelProcessorTendonCompliance.append(
                 osim.ModOpUseImplicitTendonComplianceDynamicsDGF())
 
@@ -358,8 +359,8 @@ class MotionTrackingWalking(MocoPaperResult):
         inverse.set_initial_time(self.initial_time)
         inverse.set_final_time(self.half_time)
         inverse.set_mesh_interval(self.config_track.mesh_interval)
-
-        solution = inverse.solve()
+        study = inverse.initialize()
+        solution = study.solve()
         solution.getMocoSolution().write(
             os.path.join(root_dir, self.inverse_solution_relpath))
 

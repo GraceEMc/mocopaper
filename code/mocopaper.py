@@ -26,8 +26,8 @@ if __name__ == "__main__":
     results['suspended-mass'] = SuspendedMass()
     results['prescribed-walking'] = MotionPrescribedWalking()
     results['tracking-walking'] = MotionTrackingWalking()
-    # 'predicting-walking': MotionPredictionAndAssistanceWalking(),
-    results['squat-to-stand'] = SquatToStand()
+     # 'predicting-walking': MotionPredictionAndAssistanceWalking(),
+   #  results['squat-to-stand'] = SquatToStand()
 
     examples = """
     Examples
