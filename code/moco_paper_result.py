@@ -101,7 +101,9 @@ class MocoPaperResult(ABC):
 
     def calc_negative_muscle_forces_base(self, model, solution):
         model.initSystem()
-        outputs = osim.analyze(model, solution, ['.*\|tendon_force'])
+        statesTable=solution.exportToStatesTable()
+        controlsTable=solution.exportToControlsTable()
+        outputs = osim.analyze(model, statesTable, controlsTable,['.*\|tendon_force'])
         def simtkmin(simtkvec):
             lowest = np.inf
             for i in range(simtkvec.size()):
